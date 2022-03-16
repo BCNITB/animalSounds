@@ -1,7 +1,0 @@
-{
-  "name": "sonidos",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}
