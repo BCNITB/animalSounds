@@ -10,6 +10,7 @@
 
     <ion-buttons slot="end">
       <ion-item>
+        <ion-label position="floating" [translate]="'LANGUAGE'"></ion-label>
         <ion-select [(ngModel)]="language" [value]="language" (ionChange)="changeLanguage()">
           <ion-select-option value="ca">Català</ion-select-option>
           <ion-select-option value="es">Castellano</ion-select-option>

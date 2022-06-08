@@ -1,5 +1,6 @@
 {
-    "TITLE": "Sonidos de Animales",
+    "TITLE":    "Sonidos de Animales",
+    "LANGUAGE": "Selecciona un idioma",
     "TITLE_2": "Hola {{value}}",
     "description": "Ooohh .... acabas de traducir este texto?",
     "data": {

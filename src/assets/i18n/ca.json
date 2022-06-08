@@ -1,5 +1,6 @@
 {
-    "TITLE": "Sons d'Animals",
+    "TITLE":    "Sons d'Animals",
+    "LANGUAGE": "Tria un idoma",
     "TITLE_2": "Hola {{value}}",
     "description": "Ooohh .... acabas de traducir este texto?",
     "data": {
