@@ -3,12 +3,22 @@
   width: 100vw;
 }*/
 
+ion-title{
+  width: 50vw;
+  margin-right: 0;
+  padding-right: 0;
+}
+
 button{
   height: auto;
   width: 75vw;
   margin: 1vh 10vw;
   border-radius: 1em;
   background-color: blue;
+}
+
+ion-select{
+  width: 10vw;
 }
 
 img{

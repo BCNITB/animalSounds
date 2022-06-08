@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { ANIMALES } from 'src/data/data.animales';
+
+import { TranslateService } from '@ngx-translate/core';
+
 import { Animal } from 'src/interfaces/animal';
+import { ANIMALES_ES } from 'src/data/es.animales';
+import { ANIMALES_CA } from 'src/data/ca.animales';
+import { ANIMALES_EU } from 'src/data/eu.animales';
+import { ANIMALES_GL } from 'src/data/gl.animales';
 
 @Component({
   selector: 'app-home',
@@ -14,8 +20,63 @@ export class HomePage {
   audio = new Audio();
   tiempoAudio:any;
 
-  constructor(public navCtrl:NavController) {
-    this.animales=ANIMALES.slice(0);
+  language:string;
+
+  constructor(
+    public navCtrl:NavController,
+    private _translate: TranslateService
+  ) {
+    //this.animales=ANIMALES_ES.slice(0);
+  }
+
+  ionViewDidEnter(): void {
+    this.getDeviceLanguage()
+  }
+
+  _translateLanguage(): void {
+    this._translate.use(this.language);
+  }
+
+  _initTranslate(language) {
+    // Set the default language for translation strings, and the current language.
+    this._translate.setDefaultLang('en');
+    if (language) {
+      this.language = language;
+    }
+    else {
+      // Set your language here
+      this.language = 'en';
+    }
+    this._translateLanguage();
+  }
+
+  getDeviceLanguage() {
+    if (window.Intl && typeof window.Intl === 'object') {
+      this._initTranslate(navigator.language)
+    }
+    /*else {
+      this.globalization.getPreferredLanguage()
+        .then(res => {
+          this._initTranslate(res.value)
+        })
+        .catch(e => {console.log(e);});
+    }*/
+  }
+
+  changeLanguage(){
+    this._translateLanguage();
+    this.selectArray();
+  }
+
+  selectArray(){
+    if(this.language=="es")
+      this.animales=ANIMALES_ES.slice(0);
+    else if(this.language=="ca")
+      this.animales=ANIMALES_CA.slice(0);
+    else if(this.language=="eu")
+      this.animales=ANIMALES_EU.slice(0);
+    else if(this.language=="gl")
+      this.animales=ANIMALES_GL.slice(0);
   }
 
   reproducir(animal:Animal){

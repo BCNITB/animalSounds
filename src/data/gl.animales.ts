@@ -1,7 +1,7 @@
 
-export const ANIMALES = [
+export const ANIMALES_GL = [
       {
-        nombre: "Caballo",
+        nombre: "Cabalo",
         imagen: "assets/animales/caballo.png",
         audio: "assets/sonidos/caballo.mp3",
         duracion: 4,
@@ -15,14 +15,14 @@ export const ANIMALES = [
         reproduciendo: false
       },
       {
-        nombre: "Cerdo",
+        nombre: "Porco",
         imagen: "assets/animales/cerdo.png",
         audio: "assets/sonidos/cerdo.wav",
         duracion: 2,
         reproduciendo: false
       },
       {
-        nombre: "Gallo",
+        nombre: "Galo",
         imagen: "assets/animales/gallo.png",
         audio: "assets/sonidos/gallo.mp3",
         duracion: 4,
@@ -36,14 +36,14 @@ export const ANIMALES = [
         reproduciendo: false
       },
       {
-        nombre: "Perro",
+        nombre: "Can",
         imagen: "assets/animales/perro.png",
         audio: "assets/sonidos/perro.mp3",
         duracion: 5,
         reproduciendo: false
       },
       {
-        nombre: "Serpiente",
+        nombre: "Serpe",
         imagen: "assets/animales/serpiente.png",
         audio: "assets/sonidos/serpiente.mp3",
         duracion: 2,
