@@ -3,10 +3,29 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
 import { Sounds } from '../enum/sounds';
-import { Sentence } from '../enum/sentence';
 import { Images } from '../enum/images';
+
+import { TranslateService } from '@ngx-translate/core';
+
 import { AnimaTxt } from '../enum/anima-txt';
 import { Animals } from '../enum/animals';
+import { Sentence } from '../enum/sentence';
+
+import { AnimaTxt_ES } from '../enum/es/es.anima-txt';
+import { Animals_ES } from '../enum/es/es.animals';
+import { Sentence_ES } from '../enum/es/es.sentence';
+
+import { AnimaTxt_CA } from '../enum/ca/ca.anima-txt';
+import { Animals_CA } from '../enum/ca/ca.animals';
+import { Sentence_CA } from '../enum/ca/ca.sentence';
+
+import { AnimaTxt_EU } from '../enum/eu/eu.anima-txt';
+import { Animals_EU } from '../enum/eu/eu.animals';
+import { Sentence_EU } from '../enum/eu/eu.sentence';
+
+import { AnimaTxt_GL } from '../enum/gl/gl.anima-txt';
+import { Animals_GL } from '../enum/gl/gl.animals';
+import { Sentence_GL } from '../enum/gl/gl.sentence';
 
 @Component({
   selector: 'app-adivina-sonido',
@@ -35,9 +54,56 @@ export class AdivinaSonidoPage{
   counter:number=0;
   memoryArray:number[];
 
-  constructor() {}
+  language:string;
+
+  constructor(private _translate: TranslateService) {}
 
   ngOnInit() { }
+
+  ionViewDidEnter(): void {
+    this.getDeviceLanguage()
+  }
+
+  /*_initialiseTranslation(): void {
+    this._translate.get('').subscribe((res: string) => {
+      this.title = res;
+    });
+  }*/
+
+  _translateLanguage(): void {
+    this._translate.use(this.language);
+  }
+
+  _initTranslate(language) {
+    // Set the default language for translation strings, and the current language.
+    this._translate.setDefaultLang('ca');
+    if (language) {
+      this.language = language;
+    }
+    else {
+      // Set your language here
+      this.language = 'ca';
+    }
+    this._translateLanguage();
+  }
+
+  getDeviceLanguage() {
+    if (window.Intl && typeof window.Intl === 'object') {
+      this._initTranslate(navigator.language)
+    }
+    /*else {
+      this.globalization.getPreferredLanguage()
+        .then(res => {
+          this._initTranslate(res.value)
+        })
+        .catch(e => {console.log(e);});
+    }*/
+  }
+
+  changeLanguage(){
+    this._translateLanguage();
+    //this._initialiseTranslation();
+  }
 
   start(){
     let animalSound = this.getSound(this.randomAnimal);
@@ -69,7 +135,16 @@ export class AdivinaSonidoPage{
   }
 
   getSentence(c){
-    return Sentence[c];
+    if(this.language=='ca')
+      return Sentence_CA[c];
+    else if(this.language=='es')
+      return Sentence_ES[c];
+    else if(this.language=='eu')
+      return Sentence_EU[c];
+    else if(this.language=='gl')
+      return Sentence_GL[c];
+    else
+      return Sentence_CA[c];
   }
 
   getImg(c){
@@ -77,11 +152,29 @@ export class AdivinaSonidoPage{
   }
 
   getAlt(c){
-    return AnimaTxt[c];
+    if(this.language=='ca')
+      return AnimaTxt_CA[c];
+    else if(this.language=='es')
+      return AnimaTxt_ES[c];
+    else if(this.language=='eu')
+      return AnimaTxt_EU[c];
+    else if(this.language=='gl')
+      return AnimaTxt_GL[c];
+    else
+      return AnimaTxt_CA[c];
   }
 
   getAnimal(c){
-    return Animals[c];
+    if(this.language=='ca')
+      return Animals_CA[c];
+    else if(this.language=='es')
+      return Animals_ES[c];
+    else if(this.language=='eu')
+      return Animals_EU[c];
+    else if(this.language=='gl')
+      return Animals_GL[c];
+    else
+      return Animals_CA[c];
   }
 
   reproducir(c){
@@ -119,8 +212,14 @@ export class AdivinaSonidoPage{
     this.clue3=true;
     this.count = 3;
 
-    this.msg="¡Mejor suerte la próxima! No te preocupes, nadie acierta siempre y este animal es muy escurridizo. ";
-    this.msgSol="El animal escondido era: "
+    this._translate.get('MSG01').subscribe((res: string) => {
+      this.msg = res;
+    });
+
+    this._translate.get('LASTMSG').subscribe((res: string) => {
+      this.msgSol = res;
+    });
+    
     this.score=0;
 
     this.animalImg = this.getImg(this.randomAnimal);
@@ -140,22 +239,35 @@ export class AdivinaSonidoPage{
           switch(this.counter){
             case 1:
               this.score=15;
-              this.msg="¡Puntuación Perfecta! No te ha hecho falta ninguna pista para adivinar que el animal escondido es ";
+              this._translate.get('MSG02').subscribe((res: string) => {
+                this.msg = res;
+              });
               break;
             case 2:
               this.score=14;
-              this.msg="¡Puntuación casi Perfecta! No te ha hecho falta ninguna pista para adivinar el animal escondido, aunque sí más de un intento. El animal escondido es ";
+              this._translate.get('MSG03').subscribe((res: string) => {
+                this.msg = res;
+              });
               break;
             case 3:
-              this.msg="¡A la tercera va la vencida! No te ha hecho falta ninguna pista para adivinar el animal escondido, aunque sí tres intentos para adivinar que el animal escondido es ";
+              this.score=14;
+              this._translate.get('MSG04').subscribe((res: string) => {
+                this.msg = res;
+              });
               this.score=13;
               break;
             case 4:
-              this.msg="¡A la cuarta! No te ha hecho falta ninguna pista para adivinar el animal escondido, aunque sí cuatro intentos para adivinar que el animal escondido es ";
+              this.score=14;
+              this._translate.get('MSG05').subscribe((res: string) => {
+                this.msg = res;
+              });
               this.score=12;
               break;
             case 5:
-              this.msg="¡Por poco! No te ha hecho falta ninguna pista para adivinar el animal escondido, aunque deberías haberlas pedido. El animal escondido es ";
+              this.score=14;
+              this._translate.get('MSG06').subscribe((res: string) => {
+                this.msg = res;
+              });
               this.score=11;
               break;
           }
@@ -167,23 +279,33 @@ export class AdivinaSonidoPage{
           
           switch(this.counter){
             case 1:
-              this.msg="¡No está mal! Te ha hecho falta una pequeña pista para adivinar que el animal escondido es ";
+              this._translate.get('MSG07').subscribe((res: string) => {
+                this.msg = res;
+              });
               this.score=10;
               break;
             case 2:
-              this.msg="¡A la segunda! Te ha hecho falta una pequeña pista y dos intentos para adivinar que el animal escondido es ";
+              this._translate.get('MSG08').subscribe((res: string) => {
+                this.msg = res;
+              });
               this.score=9;
               break;
             case 3:
-              this.msg="¡A la tercera va la vencida! Te ha hecho falta una pequeña pista y tres intentos para adivinar que el animal escondido es ";
+              this._translate.get('MSG09').subscribe((res: string) => {
+                this.msg = res;
+              });
               this.score=8;
               break;
             case 4:
-              this.msg="¡Te has arriesgado! Te ha hecho falta una pequeña y cuatro pistas pista para adivinar que el animal escondido es ";
+              this._translate.get('MSG10').subscribe((res: string) => {
+                this.msg = res;
+              });
               this.score=7;
               break;
             case 5:
-              this.msg="¡Sobre el alero! Te ha hecho falta una pequeña pista, ¿porqué no has pedido alguna? El animal escondido es ";
+              this._translate.get('MSG11').subscribe((res: string) => {
+                this.msg = res;
+              });
               this.score=6;
               break;
           }
@@ -195,23 +317,33 @@ export class AdivinaSonidoPage{
 
           switch(this.counter){
             case 1:
-              this.msg="¡Hemos de afinar más el oído! Te han hecho falta las dos pistas para adivinar que el animal escondido es ";
+              this._translate.get('MSG12').subscribe((res: string) => {
+                this.msg = res;
+              });
               this.score=5;
               break;
             case 2:
-              this.msg="¡Los dos patitos! Te han hecho falta las dos pistas y dos intentos para adivinar que el animal escondido es ";
+              this._translate.get('MSG13').subscribe((res: string) => {
+                this.msg = res;
+              });
               this.score=4;
               break;
             case 3:
-              this.msg="¡Debes mejorar! Te han hecho falta las dos pistas y tres intentos para adivinar que el animal escondido es ";
+              this._translate.get('MSG14').subscribe((res: string) => {
+                this.msg = res;
+              });
               this.score=3;
               break;
             case 4:
-              this.msg="¡Aix..! Te han hecho falta las dos pistas para adivinar y cuatro intentos que el animal escondido es ";
+              this._translate.get('MSG15').subscribe((res: string) => {
+                this.msg = res;
+              });
               this.score=2;
               break;
             case 5:
-              this.msg="¡Te gusta el riesgo! Por poco pero lo has logrado ¡Así me gusta! El animal escondido es ";
+              this._translate.get('MSG16').subscribe((res: string) => {
+                this.msg = res;
+              });
               this.score=1;
               break;
           }
@@ -219,7 +351,9 @@ export class AdivinaSonidoPage{
       }
     }
     else{
-      this.msg="Ya no tienes más intentos.";
+      this._translate.get('MSG17').subscribe((res: string) => {
+        this.msg = res;
+      });
       this.clue3=true;
       this.askClue3();
       this.score=0;

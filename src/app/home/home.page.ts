@@ -39,13 +39,13 @@ export class HomePage {
 
   _initTranslate(language) {
     // Set the default language for translation strings, and the current language.
-    this._translate.setDefaultLang('en');
+    this._translate.setDefaultLang('ca');
     if (language) {
       this.language = language;
     }
     else {
       // Set your language here
-      this.language = 'en';
+      this.language = 'ca';
     }
     this._translateLanguage();
   }

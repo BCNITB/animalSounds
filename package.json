@@ -28,6 +28,8 @@
     "@ionic/angular": "^5.5.2",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
+    "ionic": "^5.4.16",
+    "ngx-translate": "github:ngx-translate/core",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
